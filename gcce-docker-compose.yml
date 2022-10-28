@@ -1,0 +1,21 @@
+version: '3'
+services:
+  db:
+    image: mysql:8
+    restart: unless-stopped
+    enviorment:
+      MYSQL_DATABASE: 'bbdd_gcce'
+      MYSQL_USER: 'gcee'
+      MYSQL_PASSWORD: '1234'
+      MYSQL_ROOT_PASSWORD: '1234'
+    ports:
+    - '127.0.0.1:3306:3306'
+    expose:
+    - '3306'
+    volumes:
+    - ./db:var/lib/mysql
+  hop-web:
+    image: apache/hop-web
+    ports:
+      '80:8080'
+
