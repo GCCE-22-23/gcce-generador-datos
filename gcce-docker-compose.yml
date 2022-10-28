@@ -13,10 +13,10 @@ services:
     expose:
       - '3306'
     volumes:
-      - ./db:/var/lib/mysql
+      - ./volumes/db:/var/lib/mysql
   hop-web:
     image: apache/hop-web
     ports:
       - '80:8080'
     volumes:
-      - /files:/files
+      - ./volumes/files:/files
