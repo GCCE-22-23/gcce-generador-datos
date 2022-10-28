@@ -13,7 +13,7 @@ services:
     expose:
       - '3306'
     volumes:
-      - ./db:var/lib/mysql
+      - ./db:/var/lib/mysql
   hop-web:
     image: apache/hop-web
     ports:
