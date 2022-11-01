@@ -150,6 +150,19 @@ const names = [
     "Pepe"
 ];
 
+const academicYear = [
+    '2010-11',
+    '2011-12',
+    '2013-14',
+    '2014-15',
+    '2015-16',
+    '2016-17',
+    '2017-18',
+    '2018-19',
+    '2019-20',
+    '2020-21'
+]
+
 const categories = [
     "Letras", 
     "Ciencias sociales",
@@ -157,6 +170,12 @@ const categories = [
     "Ingenieria", 
     "Ciencias",
     "Artes"
+]
+
+const curriculumCode = [
+    "curriculum1",
+    "curriculum2",
+    "curriculum3"
 ]
 
 const titleStatus = [
@@ -257,8 +276,20 @@ const asigMark = [
     "Matricula de Honor"
 ];
 
+const subject = [
+    "Álgebra",
+    "Cálculo",
+    "Fundamentos Físicos para la Ingeniería",
+    "Informática Básica",
+    "Cálculo Diferencial de una variable real",
+    "Estadística"
+];
+
 
 module.exports = {
+    academicYear,
+    subject,
+    curriculumCode,
     titles,
     lastnames,
     names,

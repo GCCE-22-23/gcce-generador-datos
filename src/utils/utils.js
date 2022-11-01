@@ -4,6 +4,10 @@ function randomIntFromInterval(min, max) { // min and max included
     return Math.floor(Math.random() * (max - min + 1) + min)
 }
 
+function randomItemFromArray(arr) {
+    return arr[Math.floor(Math.random() * arr.length)]
+}
+
 function getInitYear(id) {
     return `${FIRST_YEAR_DATA + id}/${FIRST_YEAR_DATA + id + 1}`; 
 }
@@ -73,6 +77,7 @@ function getNumberOfMatriculas(alumno, titulacion) {
 
 module.exports = {
     randomIntFromInterval,
+    randomItemFromArray,
     getInitYear,
     getNumberOfMatriculas,
 }
