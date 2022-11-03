@@ -1,7 +1,7 @@
 
 const { sequelize } = require('../config/database');
 
-const LineaDeActas = sequelize.define(
+const LineasDeActas = sequelize.define(
     'Lineas de Actas', {
     id: { type: DataTypes.INTEGER, primaryKey: true },
     cod_plan: { type: DataTypes.STRING, primaryKey: false },
@@ -13,4 +13,4 @@ const LineaDeActas = sequelize.define(
 }
 );
 
-module.exports = LineaDeActas
+module.exports = LineasDeActas
