@@ -1,4 +1,15 @@
-export const degrees = [
+export interface Degree {
+  RAMA:       string;
+  TITULACION: Titulacion[];
+}
+
+export interface Titulacion {
+  COD_PLAN:    number;
+  TITULACION: string;
+  ASIGNATURA: string[];
+}
+
+export const degrees: Degree[] = [
     {
         "RAMA": "Artes y humanidades",
         "TITULACION": [
