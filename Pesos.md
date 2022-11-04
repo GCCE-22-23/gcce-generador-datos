@@ -7,7 +7,7 @@ Provincia -> Rama
 
 ## Tabla 02
 Rama -> [Cod_plan, Cod_mec, Titulacion]
-[Cupo, Modalidad, Titulacion] -> [Nota_esp, Nota]
+[Cupo, Especialidad, Titulacion] -> [Nota_esp, Nota]
 
 ## Tabla 03
 [Fase, Convocatoria] -> Nota
