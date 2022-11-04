@@ -1,7 +1,7 @@
 import { DataTypes } from 'sequelize'
 import { sequelize } from "../database/index.js"
 
-export const RegistrationDiscountType = sequelize.define('ASIGNATURAS_MATRICULADAS', {
+export const EnrolledSubject = sequelize.define('ASIGNATURAS_MATRICULADAS', {
   ID: {
     type: DataTypes.INTEGER,
     primaryKey: true
@@ -10,7 +10,7 @@ export const RegistrationDiscountType = sequelize.define('ASIGNATURAS_MATRICULAD
   COD_PLAN: DataTypes.STRING,
   COD_ASIGNATURA: DataTypes.INTEGER,
   ASIGNATURA: DataTypes.STRING,
-  TIPOLOGÍA:  DataTypes.STRING,
+  TIPOLOGIA:  DataTypes.STRING,
 }, {
   freezeTableName: true,
   timestamps: false
