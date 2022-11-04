@@ -78,7 +78,7 @@ export const degrees: Degree[] = [
         "TITULACION": [
             {
                 "COD_PLAN": 4,
-                "TITULACION": "Ing. Informatica",
+                "TITULACION": "Ing_Informatica",
                 "ASIGNATURA": [
                     "Calculo",
                     "Algreba",
