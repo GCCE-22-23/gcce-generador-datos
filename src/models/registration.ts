@@ -16,7 +16,7 @@ export const Registration = sequelize.define(
     NACIONALIDAD: DataTypes.STRING,
     PROVINCIA: DataTypes.INTEGER,
     MUNICIPIO: DataTypes.INTEGER,
-    NUES: DataTypes.INTEGER,
+    NUES: DataTypes.BOOLEAN,
   },
   {
     freezeTableName: true,
