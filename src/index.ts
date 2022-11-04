@@ -1,9 +1,4 @@
-import { sequelize } from './database/index.js'
+import { sequelize, initializeDatabase } from './database/index.js'
 
-try {
-  await sequelize.authenticate();
-  console.log('Connection has been established successfully.');
-} catch (error) {
-  console.error('Unable to connect to the database:', error);
-}
+await initializeDatabase()
 sequelize.close()
