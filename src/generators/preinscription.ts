@@ -6,7 +6,6 @@ import { academicYear } from "../data/academic-years.js";
 
 function generatePreinscription(id: string) {
     const degree = getItemByHash(id, degrees)
-    const isced = randomItemFromArray([0, 1, 2, 3, 4, 5, 6, 7, 8]) // Preescolar (temprana), Preescolar(preescolar), Primaria, Secundaria, Bachiller, FP Medio, FP Superios, Grado, Master, Doctorado
 
     const preferencia = randomItemFromArray([1,2,3,4,5,6,7]) // del 1 al 7
     
@@ -26,7 +25,7 @@ function generatePreinscription(id: string) {
         ID: id,
         CURSO_ACA: getItemByHash(id, academicYear),
         RAMA: degree["RAMA"],
-        ISCED: isced,
+        ISCED: degree["TITULACION"][0].COD_ISEC,
         COD_PLAN: `${degree["TITULACION"][0]["COD_PLAN"]}`,
         CODIGO_MEC: `${degree["TITULACION"][0]["COD_PLAN"]}`,
         TITULACION: titulacion,

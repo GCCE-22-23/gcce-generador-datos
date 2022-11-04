@@ -1,20 +1,22 @@
-export interface Degree {
+export interface Branch {
   RAMA:       string;
   TITULACION: Titulacion[];
 }
 
 export interface Titulacion {
   COD_PLAN:    number;
+  COD_ISEC:    number;
   TITULACION: string;
   ASIGNATURA: string[];
 }
 
-export const degrees: Degree[] = [
+export const degrees: Branch[] = [
     {
         "RAMA": "Artes y humanidades",
         "TITULACION": [
             {
                 "COD_PLAN": 1,
+                "COD_ISEC": 6,
                 "TITULACION": "Filosofia",
                 "ASIGNATURA": [
                     "Etica",
@@ -37,6 +39,7 @@ export const degrees: Degree[] = [
             {
                 "COD_PLAN": 2,
                 "TITULACION": "Fisica",
+                "COD_ISEC": 6,
                 "ASIGNATURA": [
                     "Calculo I",
                     "Calculo II",
@@ -58,6 +61,7 @@ export const degrees: Degree[] = [
             {
                 "COD_PLAN": 3,
                 "TITULACION": "Derecho",
+                "COD_ISEC": 6,
                 "ASIGNATURA": [
                     "Derecho I",
                     "Derecho II",
@@ -79,6 +83,7 @@ export const degrees: Degree[] = [
             {
                 "COD_PLAN": 4,
                 "TITULACION": "Ing_Informatica",
+                "COD_ISEC": 6,
                 "ASIGNATURA": [
                     "Calculo",
                     "Algreba",
@@ -100,6 +105,7 @@ export const degrees: Degree[] = [
             {
                 "COD_PLAN": 5,
                 "TITULACION": "Medicina",
+                "COD_ISEC": 6,
                 "ASIGNATURA": [
                     "Anatomia",
                     "Bioestadistica",
