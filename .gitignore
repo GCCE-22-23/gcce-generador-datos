@@ -1,4 +1,7 @@
+# Artifacts
+dist
 # Deps
-node_modules/**
+node_modules
 # Data
 volumes
+.env
