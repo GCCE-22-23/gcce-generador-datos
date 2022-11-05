@@ -1,4 +1,3 @@
-
 import { DataTypes } from 'sequelize'
 const { sequelize } = require('../config/database');
 
