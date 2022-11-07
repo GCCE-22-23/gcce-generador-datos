@@ -1,7 +1,7 @@
 import crc32 from 'crc-32'
 import { academicYear } from '../data/academic-years.js'
 import { degrees } from '../data/degrees.js'
-import { subjectTypologies } from '../data/subject_typology.js'
+import { typologies } from '../data/subject.js'
 import { EnrolledSubject } from '../models/enrolled-subjects.js'
 import { getItemByHash } from './utils.js'
 
@@ -15,6 +15,6 @@ export function generateEnrolledSubject(id:string, subject:string) {
     COD_PLAN: degree.COD_PLAN,
     COD_ASIGNATURA: crc32.str(subject),
     ASIGNATURA: subject,
-    TIPOLOGIA: getItemByHash(subject, subjectTypologies)
+    TIPOLOGIA: getItemByHash(subject, typologies)
   })
 }
