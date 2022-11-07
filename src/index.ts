@@ -9,10 +9,9 @@ try {
 await initializeDatabase()
 
 let promises = []
-for (var i = 1000; i > 0; i--) {
+for (var i = Number(process.env.GCCE_NUMBER_OF_STUDENTS_TO_GENERATE) || 1000; i > 0; i--) {
     promises.push(generateStudent())
 }
-
 
 await Promise.all(promises)
 sequelize.close()
