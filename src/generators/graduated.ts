@@ -5,7 +5,6 @@ import { degrees } from "../data/degrees.js"
 import { getItemByHash, randomItemFromArray, getRandomFloat } from "./utils.js";
 import { academicYear } from "../data/academic-years.js";
 import { announcementCode } from "../data/announcement-code.js";
-import { FLOAT } from "sequelize";
 // Database access methods
 
 export function generateGraduated(id:string) {
