@@ -7,6 +7,12 @@ try {
     console.error('Unable to connect to the database:', error);
 }
 await initializeDatabase()
-await generateStudent()
 
+let promises = []
+for (var i = 1000; i > 0; i--) {
+    promises.push(generateStudent())
+}
+
+
+await Promise.all(promises)
 sequelize.close()
