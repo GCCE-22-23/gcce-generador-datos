@@ -3,7 +3,7 @@ import { sequelize } from '../database/index.js';
 
 export const Record = sequelize.define(
     'LINEAS_DE_ACTAS', {
-    ID: { type: DataTypes.INTEGER, primaryKey: true },
+    ID: { type: DataTypes.UUID, primaryKey: true },
     COD_PLAN: DataTypes.STRING,
     COD_ASIGN: { type: DataTypes.INTEGER, primaryKey: true },
     ASIGNATURA: DataTypes.STRING,
