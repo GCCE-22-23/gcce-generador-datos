@@ -1,7 +1,7 @@
 import { DataTypes } from 'sequelize'
 import { sequelize } from "../database/index.js"
 
-export const EnrolledSubject = sequelize.define('EBAU_MATERIA', {
+export const EbauTest = sequelize.define('EBAU_PRUEBA', {
   ID: {
     type: DataTypes.INTEGER,
     primaryKey: true
