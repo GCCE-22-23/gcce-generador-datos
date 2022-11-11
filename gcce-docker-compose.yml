@@ -1,22 +1,33 @@
 version: '3'
 services:
   db:
-    image: mysql:8
+    image: postgres:15-alpine
+    container_name: gcce-db
+    network_mode: "host"
     restart: unless-stopped
     environment:
-      MYSQL_DATABASE: 'bbdd_gcce'
-      MYSQL_USER: 'gcee'
-      MYSQL_PASSWORD: '1234'
-      MYSQL_ROOT_PASSWORD: '1234'
-    ports:
-      - '127.0.0.1:3306:3306'
+      POSTGRES_DB: 'gcce'
+      POSTGRES_USER: 'gcce'
+      POSTGRES_PASSWORD: '1234'
+    #ports:
+      #- '5432:5432'
     expose:
-      - '3306'
+      - '5432'
     volumes:
-      - ./volumes/db:/var/lib/mysql
-  hop-web:
-    image: apache/hop-web
+      - ./volumes/pg-data:/var/lib/postgresql/data
+  hop:
+    image: apache/hop:2.1.0
+    environment:
+      HOP_SERVER_USER: 'admin'
+      HOP_SERVER_PASS: 'admin'
+      HOP_SERVER_PORT: '80'
+      HOP_SERVER_HOSTNAME: '0.0.0.0'
+      HOP_LOG_LEVEL: 'basic'
+      HOP_PROJECT_FOLDER: '/files'
+      HOP_RUN_CONFIG: 'local'
+    restart: unless-stopped
     ports:
-      - '80:8080'
+      - '80:80'
     volumes:
-      - ./volumes/files:/files
+      - ./volumes/hop:/files
+ 
