@@ -12,7 +12,7 @@ export const EbauSubject = sequelize.define('EBAU_MATERIA', {
   COD_MATERIA: DataTypes.STRING,
   MATERIA: DataTypes.STRING,
   FASE:  DataTypes.STRING,
-  NOTA: DataTypes.INTEGER
+  NOTA: DataTypes.FLOAT
 }, {
   freezeTableName: true,
   timestamps: false

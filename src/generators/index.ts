@@ -32,7 +32,7 @@ export function generateStudent() {
       promises.push(generateEbauSubject(id, subject, "general"))
     }
     
-    let randomIndexes = Math.floor(Math.random() * specificSubjects.length - 2)
+    let randomIndexes = Math.floor(Math.random() * (specificSubjects.length - 2))
     promises.push(generateEbauSubject(id, specificSubjects[randomIndexes], "especifica"))
     promises.push(generateEbauSubject(id, specificSubjects[randomIndexes + 1], "especifica"))
 
