@@ -1,7 +1,7 @@
 import { DataTypes } from 'sequelize'
 import { sequelize } from "../database/index.js"
 
-export const EnrolledSubject = sequelize.define('EBAU_MATERIA', {
+export const EbauSubject = sequelize.define('EBAU_MATERIA', {
   ID: {
      type: DataTypes.UUID
 ,

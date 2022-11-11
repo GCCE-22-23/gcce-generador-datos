@@ -5,3 +5,4 @@ node_modules
 # Data
 volumes
 .env
+.DS_Store
