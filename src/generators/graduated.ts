@@ -1,24 +1,16 @@
-
-
 import { Graduated } from "../models/graduated.js";
 import { degrees } from "../data/degrees.js"
 import { getItemByHash, randomItemFromArray, getRandomFloat } from "./utils.js";
 import { academicYear } from "../data/academic-years.js";
-import { announcementCode } from "../data/announcement-code.js";
-// Database access methods
+import { announcementEbauCode } from "../data/announcement-ebau.js";
+
 
 export function generateGraduated(id:string) {
     const branch = getItemByHash(id, degrees)
     const degree = getItemByHash(id, branch.TITULACION)
-    const announcement = randomItemFromArray(announcementCode)
-    var nota = 0
-    if(announcement == "Primera Convocatoria"){
-        nota = getRandomFloat(0,10);            
-    }else if (announcement == "Sexta Convocatoria"){
-        nota = getRandomFloat(4,10);
-    }else{
-        nota = getRandomFloat(2,10);
-    }
+    const announcement = randomItemFromArray(announcementEbauCode)
+    const announcementMultiplayer = Number(process.env["GCCE_EGRESADO_MULTIPLICADOR_COVOCATORIA_" + announcement.replaceAll(' ', '_').toUpperCase()]) || 1
+    const mark = Math.min(getRandomFloat(5, 10) * announcementMultiplayer, 10)
     
 
     return Graduated.create({
@@ -26,6 +18,6 @@ export function generateGraduated(id:string) {
         CURSO_ACA: getItemByHash(id, academicYear),
         COD_PLAN: degree.COD_PLAN,
         CONV: announcement,
-        NOTA_NUMERICA: nota
+        NOTA_NUMERICA: mark
     })
 }

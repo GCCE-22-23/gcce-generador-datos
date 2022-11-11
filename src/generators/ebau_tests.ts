@@ -11,8 +11,8 @@ export function generateEbauTests(id: string) {
     
     const announcementBachillerMultiplayer = Number(process.env["GCCE_ANNOUNCEMENT_MULTIPLICADOR_COVOCATORIA_BACHILLER_" + announcement.replaceAll(' ', '_').toUpperCase()]) || 1
     const announcementEbauMultiplayer = Number(process.env["GCCE_ANNOUNCEMENT_MULTIPLICADOR_COVOCATORIA_EBAU_" + announcement.replaceAll(' ', '_').toUpperCase()]) || 1
-    const bachillerMark = getRandomFloat(3,6) * announcementBachillerMultiplayer
-    const ebauMark = getRandomFloat(2,4) * announcementEbauMultiplayer
+    const bachillerMark = Math.min(getRandomFloat(3,6) * announcementBachillerMultiplayer, 6)
+    const ebauMark = Math.min(getRandomFloat(2,4) * announcementEbauMultiplayer, 4)
 
     return EbauTest.create({
         ID: id,
