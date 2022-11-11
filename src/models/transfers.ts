@@ -5,7 +5,8 @@ export const Transfers = sequelize.define(
     'TRASLADOS', 
     {
         ID: {
-            type: DataTypes.INTEGER,
+             type: DataTypes.UUID
+,
             primaryKey: true
           },
         CURSO_ACA: {type: DataTypes.STRING, primaryKey: false},

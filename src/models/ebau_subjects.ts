@@ -3,7 +3,8 @@ import { sequelize } from "../database/index.js"
 
 export const EnrolledSubject = sequelize.define('EBAU_MATERIA', {
   ID: {
-    type: DataTypes.INTEGER,
+     type: DataTypes.UUID
+,
     primaryKey: true
   },
   CURSO_ACA: DataTypes.STRING,

@@ -1,11 +1,11 @@
 import { DataTypes } from 'sequelize'
-const { sequelize } = require('../config/database');
+import { sequelize } from '../database/index.js';
 
 export const preinscription = sequelize.define(
     'PREINSCRIPCION', {
-    ID: { type: DataTypes.UUIDV4, primaryKey: true },
+    ID: { type: DataTypes.UUID, primaryKey: true },
     CURSO_ACA: { type: DataTypes.STRING, primaryKey: false },
-    RAMA: { type: DataTypes.INTEGER, primaryKey: false },
+    RAMA: { type: DataTypes.STRING, primaryKey: false },
     ISCED: { type: DataTypes.INTEGER, primaryKey: false},
     COD_PLAN: { type: DataTypes.STRING, primaryKey: false },
     CODIGO_MEC: { type: DataTypes.STRING, primaryKey: false },
@@ -14,8 +14,8 @@ export const preinscription = sequelize.define(
     MODALIDAD: { type: DataTypes.STRING, primaryKey: false },
     ESPECIALIDAD: { type: DataTypes.STRING, primaryKey: false },
     PREFERENCIA: { type: DataTypes.INTEGER, primaryKey: false },
-    NOTA: { type: DataTypes.NUMBER, primaryKey: false },
-    NOTA_ESP: { type: DataTypes.NUMBER, primaryKey: false },
-    NOTA_ADM: { type: DataTypes.NUMBER, primaryKey: false },
+    NOTA: { type: DataTypes.FLOAT, primaryKey: false },
+    NOTA_ESP: { type: DataTypes.FLOAT, primaryKey: false },
+    NOTA_ADM: { type: DataTypes.FLOAT, primaryKey: false },
 }
 );

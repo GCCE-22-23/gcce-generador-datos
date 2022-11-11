@@ -1,11 +1,9 @@
-
-
 import { Graduated } from "../models/graduated.js";
 import { degrees } from "../data/degrees.js"
 import { getItemByHash, randomItemFromArray, getRandomFloat } from "./utils.js";
 import { academicYear } from "../data/academic-years.js";
 import { announcementEbauCode } from "../data/announcement-ebau.js";
-// Database access methods
+
 
 export function generateGraduated(id:string) {
     const branch = getItemByHash(id, degrees)

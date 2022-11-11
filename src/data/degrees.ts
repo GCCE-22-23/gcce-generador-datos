@@ -72,7 +72,7 @@ export const degrees: Branch[] = [
                     "Derecho Penal",
                     "Derecho Urbanistico",
                     "Geografica Juridica",
-                    "Teoria del Derecho"
+                    "Teoria del Derecho II"
                 ]
             }
         ]
