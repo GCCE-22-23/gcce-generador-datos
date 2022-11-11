@@ -1,7 +1,10 @@
 import crc32 from 'crc-32'
 import { randomUUID } from 'crypto'
 import { degrees } from '../data/degrees.js'
+import { generalSubjects, specificSubjects } from '../data/ebau-subject.js'
 import { modalities } from '../data/preinscription.js'
+import { generateEbauSubject } from './ebau_subjects.js'
+import { generateEbauTests } from './ebau_tests.js'
 import { generateEnrolledSubject } from './enrolled_subject.js'
 import { generateGraduated } from './graduated.js'
 import { generateParentsEducationAndJob } from './parents-education-and-job.js'
@@ -25,8 +28,17 @@ export function generateStudent() {
   promises.push(generateRegistration(id))
   promises.push(generatePreinscription(id))
   if (getItemByHash(id, modalities) === "BAC") {
-    // TODO generate EBAU Materua and EBAU Prueba
+    for (let subject of generalSubjects) {
+      promises.push(generateEbauSubject(id, subject, "general"))
+    }
+    
+    let randomIndexes = Math.round(Math.random() * specificSubjects.length - 2)
+    promises.push(generateEbauSubject(id, specificSubjects[randomIndexes], "especifica"))
+    promises.push(generateEbauSubject(id, specificSubjects[randomIndexes + 1], "especifica"))
+
+    promises.push(generateEbauTests(id))
   }
+
 
   for (let subject of subjets) {
     promises.push(generateEnrolledSubject(id, subject))
