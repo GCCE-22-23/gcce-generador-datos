@@ -9,6 +9,9 @@ export function generateRegistration(id: string) {
   const branch = getItemByHash(id, degrees)
   const degree = getItemByHash(id, branch.TITULACION)
 
+  const provincia = getItemByHash(id + "provincia", provinces)
+  const municipio = getItemByHash(id + "municipio", municipality[provinces.indexOf(provincia)])
+
   return Registration.create({
     ID: id,
     CURSO_ACA: getItemByHash(id, academicYear),
@@ -18,10 +21,10 @@ export function generateRegistration(id: string) {
     CODIGO_MEC: degree.COD_PLAN,
     TITULACION: degree.TITULACION,
     SEXO: getItemByHash(id, sexes),
-    ANIO_NAC: Math.round(Math.random()) * 33 + 1970,
+    ANIO_NAC: Math.round(Math.random() * 33) + 1970,
     NACIONALIDAD: getItemByHash(id, nationalities),
-    PROVINCIA: getItemByHash(id, provinces),
-    MUNICIPIO: getItemByHash(id, municipality),
+    PROVINCIA: provincia,
+    MUNICIPIO: municipio,
     NUES: getItemByHash(id, newStudent)
   })
 }

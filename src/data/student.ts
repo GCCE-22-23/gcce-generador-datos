@@ -1,23 +1,38 @@
 export const municipality = [
-  'La Orotava',
-  'San Cristobal La Laguna',
-  'La Victoria',
-  'Garachico',
-  'Santa Cruz de Tenerife',
-  'La Palmas de Gran canaria',
-  'Santa Maria de Guia'
+  ['La Orotava',
+    'San Cristobal La Laguna',
+    'La Victoria',
+    'Garachico',
+    'Santa Cruz de Tenerife',
+    'Candelaria',
+    'Güimar',
+    'Arona'
+  ],
+
+  ['Las Palmas de Gran Canaria',
+    'Santa Maria de Guia',
+    'Arucas',
+    'Valsequillo',
+    'Maspalomas',
+    'Agüimes',
+    'Teror'
+  ]
 ]
 
 export const nationalities = [
   "ESPAÑA",
-  "ALEMANIA",
+  "ESPAÑA",
+  "ESPAÑA",
+  "ESPAÑA",
+  "ESPAÑA",
+  "ESPAÑA",
+  "ESPAÑA",
+  "ESPAÑA",
   "FRANCIA",
-  "ITALIA",
-  "POLONIA",
-  "IRLANDA"    
+  "IRLANDA"
 ]
 
-export const newStudent = [ true, false ]
+export const newStudent = [true, false, false, false, false]
 
 export const provinces = [
   'Santa Cruz de Tenerife',

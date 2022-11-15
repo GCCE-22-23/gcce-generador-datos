@@ -6,13 +6,6 @@ import { curriculumCode } from "../data/curriculum-code.js";
 import { university } from "../data/university.js";
 import { transfers } from "../data/transfers.js";
 
-// Database access methods
-
-
-
-
-
-
 // COD_TRASLADOS, CURSO_ACA, COD_PLAN, TRASLADO, UNIV_TRAS
 export function generateTransfers(id:string) {
     const branch = getItemByHash(id, degrees)

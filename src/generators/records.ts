@@ -28,7 +28,7 @@ export function generateRecord(id: string, subject: string) {
   return Record.create({
     ID: id,
     COD_PLAN: degree.COD_PLAN,
-    COD_ASIGN:  crc32.str(subject),
+    COD_ASIGN:  Math.abs(crc32.str(subject)),
     ASIGNATURA: subject,
     CONV: getItemByHash(id, call),
     CALIF_NUMERICA: mark,

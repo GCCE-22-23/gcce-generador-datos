@@ -7,19 +7,24 @@ import { academicYear } from "../data/academic-years.js";
 export function generatePreinscription(id: string) {
     const degree = getItemByHash(id, degrees)
 
-    const preferencia = randomItemFromArray([1,2,3,4,5,6,7]) // del 1 al 7
     
-    const modalidad = getItemByHash(id, modalities)
-    const especialidad = getItemByHash(id, specialities[modalities.indexOf(modalidad)])
-    const cupo = getItemByHash(id, quotes)
+    const modalidad = getItemByHash(id + "modalidad", modalities)
+    const especialidad = getItemByHash(id + "especialidad", specialities[modalities.indexOf(modalidad)])
+    const cupo = getItemByHash(id + "cupo", quotes)
     const titulacion =  degree["TITULACION"][0]["TITULACION"]
-
+    
     const multiplicadorEspecialidad = Number(process.env["GCCE_PREINSCRIPCION_MULTIPLICADOR_NOTA_ESPECIALIDAD_" + especialidad.toUpperCase()]) || 1
     const multiplicadorCupo = Number(process.env["GCCE_PREINSCRIPCION_MULTIPLICADOR_NOTA_CUPO_" + cupo.toUpperCase()]) || 1
     const multiplicadorTitulacion = Number(process.env["GCCE_PREINSCRIPCION_MULTIPLICADOR_NOTA_TITULACION_" + titulacion.toUpperCase()]) || 1
-
+    
     const nota = Math.min(randomItemFromArray([1,2,3,4,5,6,7,8,9,10]) * multiplicadorCupo * multiplicadorEspecialidad * multiplicadorTitulacion, 10)
     const notaEsp =  Math.min(randomItemFromArray([1,2,3,4,5,6,7,8,9,10]) * multiplicadorCupo * multiplicadorEspecialidad * multiplicadorTitulacion, 10)
+    
+    let preferencia = randomItemFromArray([1,2,3,4,5,6,7]) // del 1 al 7
+
+    if(nota + notaEsp > 15){
+        preferencia %= 3
+    }
 
     const pre = preinscription.create({
         ID: id,
