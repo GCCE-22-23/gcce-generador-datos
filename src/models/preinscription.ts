@@ -17,5 +17,7 @@ export const preinscription = sequelize.define(
     NOTA: { type: DataTypes.FLOAT, primaryKey: false },
     NOTA_ESP: { type: DataTypes.FLOAT, primaryKey: false },
     NOTA_ADM: { type: DataTypes.FLOAT, primaryKey: false },
-}
-);
+}, {
+    freezeTableName: true,
+    timestamps: false
+  });

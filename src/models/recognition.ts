@@ -7,7 +7,7 @@ export const Recognition = sequelize.define(
         ID: {
             type: DataTypes.UUID,
             primaryKey: true
-          },
+        },
         COD_PLAN: {type: DataTypes.STRING, primaryKey: false},
         CRED: {type: DataTypes.INTEGER, primaryKey: false},
               
