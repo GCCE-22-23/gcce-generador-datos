@@ -1,11 +1,10 @@
 import { Graduated } from "../models/graduated.js";
 import { degrees } from "../data/degrees.js"
 import { getItemByHash, randomItemFromArray, getRandomFloat } from "./utils.js";
-import { academicYear } from "../data/academic-years.js";
 import { announcementEbauCode } from "../data/announcement-ebau.js";
 
 
-export function generateGraduated(id:string) {
+export function generateGraduated(id: string, academicYear: string) {
     const branch = getItemByHash(id, degrees)
     const degree = getItemByHash(id, branch.TITULACION)
     const announcement = randomItemFromArray(announcementEbauCode)
@@ -15,7 +14,7 @@ export function generateGraduated(id:string) {
 
     return Graduated.create({
         ID: id,
-        CURSO_ACA: getItemByHash(id, academicYear),
+        CURSO_ACA: academicYear,
         COD_PLAN: degree.COD_PLAN,
         CONV: announcement,
         NOTA_NUMERICA: mark

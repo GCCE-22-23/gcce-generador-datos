@@ -2,9 +2,8 @@ import { preinscription } from "../models/preinscription.js";
 import { quotes, modalities, specialities } from "../data/preinscription.js";
 import { degrees } from "../data/degrees.js"
 import { getItemByHash, randomItemFromArray } from "./utils.js";
-import { academicYear } from "../data/academic-years.js";
 
-export function generatePreinscription(id: string) {
+export function generatePreinscription(id: string, academicYear: string) {
     const degree = getItemByHash(id, degrees)
 
     
@@ -28,7 +27,7 @@ export function generatePreinscription(id: string) {
 
     const pre = preinscription.create({
         ID: id,
-        CURSO_ACA: getItemByHash(id, academicYear),
+        CURSO_ACA: academicYear,
         RAMA: degree["RAMA"],
         ISCED: degree["TITULACION"][0].COD_ISEC,
         COD_PLAN: `${degree["TITULACION"][0]["COD_PLAN"]}`,
