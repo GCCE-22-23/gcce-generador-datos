@@ -8,7 +8,7 @@ export const Record = sequelize.define(
     COD_ASIGN: { type: DataTypes.INTEGER, primaryKey: true },
     ASIGNATURA: DataTypes.STRING,
     CONV: { type: DataTypes.STRING, primaryKey: true },
-    CALIF_NUMERICA: DataTypes.STRING,
+    CALIF_NUMERICA: DataTypes.FLOAT,
     CALIF: DataTypes.STRING
 }, {
   freezeTableName: true,

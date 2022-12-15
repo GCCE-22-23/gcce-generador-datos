@@ -4,8 +4,7 @@ import { sequelize } from "../database/index.js"
 export const Registration = sequelize.define(
   "MATRICULA",
   {
-    ID: {  type: DataTypes.UUID
-, primaryKey: true },
+    ID: {  type: DataTypes.UUID, primaryKey: true },
     CURSO_ACA: { type: DataTypes.STRING, primaryKey: true },
     RAMA: DataTypes.INTEGER,
     COD_AMBITO_ISCED: DataTypes.STRING,

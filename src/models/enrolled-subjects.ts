@@ -3,17 +3,20 @@ import { sequelize } from "../database/index.js"
 
 export const EnrolledSubject = sequelize.define('ASIGNATURAS_MATRICULADAS', {
   ID: {
-     type: DataTypes.UUID,
-      primaryKey: true
+    type: DataTypes.UUID,
+    primaryKey: true
   },
-  CURSO_ACA: DataTypes.STRING,
+  CURSO_ACA: {
+    type: DataTypes.STRING,
+    primaryKey: true
+  },
   COD_PLAN: DataTypes.STRING,
-  COD_ASIGNATURA: { 
+  COD_ASIGNATURA: {
     type: DataTypes.INTEGER,
     primaryKey: true
   },
   ASIGNATURA: DataTypes.STRING,
-  TIPOLOGIA:  DataTypes.STRING,
+  TIPOLOGIA: DataTypes.STRING,
 }, {
   freezeTableName: true,
   timestamps: false

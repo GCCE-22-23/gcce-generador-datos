@@ -1,11 +1,10 @@
 import crc32 from 'crc-32'
-import { academicYear } from "../data/academic-years.js";
 import { degrees } from "../data/degrees.js";
 import { municipality, nationalities, newStudent, provinces, sexes } from '../data/student.js';
 import { Registration } from "../models/registration.js";
 import { getItemByHash, randomItemFromArray } from "./utils.js";
 
-export function generateRegistration(id: string) {
+export function generateRegistration(id: string, academicYear: string, nues: boolean) {
   const branch = getItemByHash(id, degrees)
   const degree = getItemByHash(id, branch.TITULACION)
 
@@ -14,7 +13,7 @@ export function generateRegistration(id: string) {
 
   return Registration.create({
     ID: id,
-    CURSO_ACA: getItemByHash(id, academicYear),
+    CURSO_ACA: academicYear,
     RAMA: crc32.str(branch.RAMA),
     COD_AMBITO_ISCED: degree.COD_ISEC,
     COD_PLAN: degree.COD_PLAN,
@@ -25,6 +24,6 @@ export function generateRegistration(id: string) {
     NACIONALIDAD: getItemByHash(id, nationalities),
     PROVINCIA: provincia,
     MUNICIPIO: municipio,
-    NUES: getItemByHash(id, newStudent)
+    NUES: nues
   })
 }

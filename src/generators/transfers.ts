@@ -9,7 +9,6 @@ import { transfers } from "../data/transfers.js";
 // COD_TRASLADOS, CURSO_ACA, COD_PLAN, TRASLADO, UNIV_TRAS
 export function generateTransfers(id:string) {
     const branch = getItemByHash(id, degrees)
-    const degree = getItemByHash(id, branch.TITULACION)
     return Transfers.create({
         ID: id,
         CURSO_ACA: randomItemFromArray(academicYear),
