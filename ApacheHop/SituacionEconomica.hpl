@@ -13,18 +13,33 @@
     <transform_performance_capturing_delay>1000</transform_performance_capturing_delay>
     <transform_performance_capturing_size_limit>100</transform_performance_capturing_size_limit>
     <created_user>-</created_user>
-    <created_date>2022/12/16 16:08:31.888</created_date>
+    <created_date>2022/12/16 16:55:04.446</created_date>
     <modified_user>-</modified_user>
-    <modified_date>2022/12/16 16:08:31.888</modified_date>
-    <key_for_session_key>H4sIAAAAAAAA/wMAAAAAAAAAAAA=</key_for_session_key>
+    <modified_date>2022/12/16 16:55:04.446</modified_date>
+    <key_for_session_key>H4sIAAAAAAAAAAMAAAAAAAAAAAA=</key_for_session_key>
     <is_key_private>N</is_key_private>
   </info>
   <notepads>
   </notepads>
   <order>
+    <hop>
+      <from>GetSituacionEconomica</from>
+      <to>VALOR</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>VALOR</from>
+      <to>LIMPIEZA</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>LIMPIEZA</from>
+      <to>Dimension lookup/update</to>
+      <enabled>Y</enabled>
+    </hop>
   </order>
   <transform>
-    <name>GetFormacionOcupacion</name>
+    <name>GetSituacionEconomica</name>
     <type>TableInput</type>
     <description/>
     <distribute>Y</distribute>
@@ -34,22 +49,22 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <connection>GCCE-Clau</connection>
+    <connection>GCCE_ALE</connection>
     <execute_each_row>N</execute_each_row>
     <limit>0</limit>
-    <sql>SELECT *
+    <sql>SELECT "ID","VALOR","CURSO_ACA"
 FROM "FORMACION_Y_OCUPACION_DE_LOS_FAMILIARES"
 </sql>
     <variables_active>N</variables_active>
     <attributes/>
     <GUI>
-      <xloc>336</xloc>
+      <xloc>144</xloc>
       <yloc>192</yloc>
     </GUI>
   </transform>
   <transform>
-    <name>GetMatriculaDescuento</name>
-    <type>TableInput</type>
+    <name>LIMPIEZA</name>
+    <type>SelectValues</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -58,17 +73,105 @@ FROM "FORMACION_Y_OCUPACION_DE_LOS_FAMILIARES"
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <connection>GCCE-Clau</connection>
-    <execute_each_row>N</execute_each_row>
-    <limit>0</limit>
-    <sql>SELECT *
-FROM "TIPO_MATRICULA_CON_DESCUENTO"
-</sql>
-    <variables_active>N</variables_active>
+    <fields>
+      <field>
+        <name>ID</name>
+        <rename>ID_ESTUDIANTE</rename>
+      </field>
+      <field>
+        <name>CURSO_ACA</name>
+      </field>
+      <field>
+        <name>ECONOMIA_FAMILIAR</name>
+      </field>
+      <select_unspecified>N</select_unspecified>
+    </fields>
     <attributes/>
     <GUI>
-      <xloc>336</xloc>
-      <yloc>304</yloc>
+      <xloc>448</xloc>
+      <yloc>192</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>VALOR</name>
+    <type>NumberRange</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fallBackValue>F</fallBackValue>
+    <inputField>VALOR</inputField>
+    <outputField>ECONOMIA_FAMILIAR</outputField>
+    <rules>
+      <rule>
+        <lower_bound>0</lower_bound>
+        <upper_bound>2</upper_bound>
+        <value>Baja</value>
+      </rule>
+      <rule>
+        <lower_bound>2</lower_bound>
+        <upper_bound>6</upper_bound>
+        <value>Media</value>
+      </rule>
+      <rule>
+        <lower_bound>6</lower_bound>
+        <upper_bound>10</upper_bound>
+        <value>Alta</value>
+      </rule>
+    </rules>
+    <attributes/>
+    <GUI>
+      <xloc>320</xloc>
+      <yloc>192</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>Dimension lookup/update</name>
+    <type>DimensionLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <schema>"public"</schema>
+    <table>DIM_SITUACION_ECONOMICA</table>
+    <connection>GCCE_ALE</connection>
+    <commit>100</commit>
+    <update>Y</update>
+    <fields>
+      <date>
+        <name/>
+        <from>date_from</from>
+        <to>date_to</to>
+      </date>
+      <return>
+        <name/>
+        <rename/>
+        <creation_method>tablemax</creation_method>
+        <use_autoinc>N</use_autoinc>
+        <version>version</version>
+      </return>
+    </fields>
+    <sequence/>
+    <min_year>1900</min_year>
+    <max_year>2199</max_year>
+    <cache_size>5000</cache_size>
+    <preload_cache>N</preload_cache>
+    <use_start_date_alternative>N</use_start_date_alternative>
+    <start_date_alternative>none</start_date_alternative>
+    <start_date_field_name/>
+    <useBatch>N</useBatch>
+    <attributes/>
+    <GUI>
+      <xloc>592</xloc>
+      <yloc>192</yloc>
     </GUI>
   </transform>
   <transform_error_handling>
