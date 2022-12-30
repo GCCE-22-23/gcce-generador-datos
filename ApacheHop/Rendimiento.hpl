@@ -16,8 +16,6 @@
     <created_date>2022/12/16 16:55:27.267</created_date>
     <modified_user>-</modified_user>
     <modified_date>2022/12/16 16:55:27.267</modified_date>
-    <key_for_session_key>H4sIAAAAAAAAAAMAAAAAAAAAAAA=</key_for_session_key>
-    <is_key_private>N</is_key_private>
   </info>
   <notepads>
   </notepads>
@@ -39,28 +37,78 @@
     </hop>
     <hop>
       <from>LIMPIEZA 2 2</from>
-      <to>Sort rows 2 2</to>
+      <to>SUS/APR</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Sort rows 2 2</from>
+      <from>SUS/APR</from>
+      <to>LIMPIEZA</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>LIMPIEZA</from>
+      <to>Sort rows</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Sort rows</from>
       <to>Unique rows 3 2 2</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
       <from>Unique rows 3 2 2</from>
-      <to>LIMPIEZA 2 3 2 2</to>
+      <to>Row denormaliser</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>LIMPIEZA 2 3 2 2</from>
+      <from>GetAsignaturasMat</from>
+      <to>Sort rows 2</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Sort rows 2</from>
+      <to>Unique rows</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Row denormaliser</from>
+      <to>Merge join 2</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Unique rows</from>
+      <to>Select values</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Select values</from>
+      <to>Merge join 2</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Merge join 2</from>
+      <to>Select values 2</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Select values 2</from>
+      <to>Rendimiento</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Rendimiento</from>
+      <to>Select values 2 2</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Select values 2 2</from>
       <to>Dimension lookup/update</to>
       <enabled>Y</enabled>
     </hop>
   </order>
   <transform>
-    <name>GetAsignaturasMat</name>
-    <type>TableInput</type>
+    <name>Dimension lookup/update</name>
+    <type>DimensionLookup</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -69,7 +117,78 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <connection>GCCE_ALE</connection>
+    <cache_size>5000</cache_size>
+    <commit>100</commit>
+    <connection>GCCE-Ale</connection>
+    <fields>
+      <date>
+        <from>date_from</from>
+        <name/>
+        <to>date_to</to>
+      </date>
+      <field>
+        <lookup>CURSO_ACA</lookup>
+        <name>CURSO_ACA</name>
+        <update>Insert</update>
+      </field>
+      <field>
+        <lookup>ASIG_APRO</lookup>
+        <name>ASIG_APRO</name>
+        <update>Insert</update>
+      </field>
+      <field>
+        <lookup>ASIG_SUS</lookup>
+        <name>ASIG_SUS</name>
+        <update>Insert</update>
+      </field>
+      <field>
+        <lookup>NUM_ASIG_MAT</lookup>
+        <name>NUM_ASIG_MAT</name>
+        <update>Insert</update>
+      </field>
+      <field>
+        <lookup>RENDIMIENTO</lookup>
+        <name>RENDIMIENTO</name>
+        <update>Insert</update>
+      </field>
+      <key>
+        <lookup>ID_ESTUDIANTE</lookup>
+        <name>ID_ESTUDIANTE</name>
+      </key>
+      <return>
+        <creation_method>autoinc</creation_method>
+        <name>TEC_KEY</name>
+        <rename/>
+        <version>version</version>
+      </return>
+    </fields>
+    <max_year>2199</max_year>
+    <min_year>1900</min_year>
+    <preload_cache>N</preload_cache>
+    <schema>public</schema>
+    <start_date_field_name/>
+    <table>"DIM_INGRESO_RENDIMIENTO"</table>
+    <update>Y</update>
+    <useBatch>N</useBatch>
+    <use_start_date_alternative>N</use_start_date_alternative>
+    <attributes/>
+    <GUI>
+      <xloc>1856</xloc>
+      <yloc>160</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>GetAsignaturasMat</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>N</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>GCCE-Ale</connection>
     <execute_each_row>N</execute_each_row>
     <limit>0</limit>
     <sql>SELECT "ID", "CURSO_ACA", "ASIGNATURA"
@@ -94,12 +213,11 @@ ORDER BY "ID", "ASIGNATURA"
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <connection>GCCE_ALE</connection>
+    <connection>GCCE-Ale</connection>
     <execute_each_row>N</execute_each_row>
     <limit>0</limit>
     <sql>SELECT "ID", "ASIGNATURA", "CALIF_NUMERICA"
 FROM "LINEAS_DE_ACTAS"
-WHERE "CALIF_NUMERICA" > 5
 ORDER BY "ID", "ASIGNATURA"
 
 </sql>
@@ -108,6 +226,35 @@ ORDER BY "ID", "ASIGNATURA"
     <GUI>
       <xloc>240</xloc>
       <yloc>256</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>LIMPIEZA</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <name>ID_ESTUDIANTE</name>
+      </field>
+      <field>
+        <name>CURSO_ACA</name>
+      </field>
+      <field>
+        <name>SUS/APR</name>
+      </field>
+      <select_unspecified>N</select_unspecified>
+    </fields>
+    <attributes/>
+    <GUI>
+      <xloc>752</xloc>
+      <yloc>208</yloc>
     </GUI>
   </transform>
   <transform>
@@ -144,36 +291,6 @@ ORDER BY "ID", "ASIGNATURA"
     </GUI>
   </transform>
   <transform>
-    <name>LIMPIEZA 2 3 2 2</name>
-    <type>SelectValues</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <fields>
-      <field>
-        <name>ID_ESTUDIANTE</name>
-      </field>
-      <field>
-        <name>CURSO_ACA</name>
-      </field>
-      <field>
-        <name>Contador</name>
-        <rename>NUM_APROBADAS</rename>
-      </field>
-      <select_unspecified>N</select_unspecified>
-    </fields>
-    <attributes/>
-    <GUI>
-      <xloc>992</xloc>
-      <yloc>208</yloc>
-    </GUI>
-  </transform>
-  <transform>
     <name>Merge join</name>
     <type>MergeJoin</type>
     <description/>
@@ -202,7 +319,271 @@ ORDER BY "ID", "ASIGNATURA"
     </GUI>
   </transform>
   <transform>
-    <name>Sort rows 2 2</name>
+    <name>Merge join 2</name>
+    <type>MergeJoin</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <join_type>LEFT OUTER</join_type>
+    <keys_1>
+      <key>ID_ESTUDIANTE</key>
+      <key>CURSO_ACA</key>
+    </keys_1>
+    <keys_2>
+      <key>ID</key>
+      <key>CURSO_ACA</key>
+    </keys_2>
+    <transform1>Row denormaliser</transform1>
+    <transform2>Select values</transform2>
+    <attributes/>
+    <GUI>
+      <xloc>1280</xloc>
+      <yloc>128</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>Rendimiento</name>
+    <type>Calculator</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <calculation>
+      <calc_type>DIVIDE</calc_type>
+      <field_a>ASIG_APRO</field_a>
+      <field_b>NUM_ASIG_MAT</field_b>
+      <field_name>RENDIMIENTO</field_name>
+      <remove>N</remove>
+      <value_length>6</value_length>
+      <value_precision>4</value_precision>
+      <value_type>Number</value_type>
+    </calculation>
+    <failIfNoFile>Y</failIfNoFile>
+    <attributes/>
+    <GUI>
+      <xloc>1568</xloc>
+      <yloc>160</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>Row denormaliser</name>
+    <type>Denormaliser</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <field_name>Contador</field_name>
+        <key_value>APR</key_value>
+        <target_aggregation_type>-</target_aggregation_type>
+        <target_length>-1</target_length>
+        <target_name>ASIG_APRO</target_name>
+        <target_precision>-1</target_precision>
+        <target_type>Integer</target_type>
+      </field>
+      <field>
+        <field_name>Contador</field_name>
+        <key_value>SUS</key_value>
+        <target_aggregation_type>-</target_aggregation_type>
+        <target_length>-1</target_length>
+        <target_name>ASIG_SUS</target_name>
+        <target_precision>-1</target_precision>
+        <target_type>Integer</target_type>
+      </field>
+    </fields>
+    <group>
+      <field>
+        <name>CURSO_ACA</name>
+      </field>
+    </group>
+    <key_field>SUS/APR</key_field>
+    <attributes/>
+    <GUI>
+      <xloc>1136</xloc>
+      <yloc>208</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>SUS/APR</name>
+    <type>NumberRange</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <inputField>CALIF_NUMERICA</inputField>
+    <outputField>SUS/APR</outputField>
+    <rules>
+      <rule>
+        <upper_bound>5</upper_bound>
+        <value>SUS</value>
+      </rule>
+      <rule>
+        <lower_bound>5</lower_bound>
+        <value>APR</value>
+      </rule>
+    </rules>
+    <attributes/>
+    <GUI>
+      <xloc>624</xloc>
+      <yloc>208</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>Select values</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <name>ID</name>
+      </field>
+      <field>
+        <name>CURSO_ACA</name>
+      </field>
+      <field>
+        <name>NUM_ASIG_MAT</name>
+      </field>
+      <select_unspecified>N</select_unspecified>
+    </fields>
+    <attributes/>
+    <GUI>
+      <xloc>816</xloc>
+      <yloc>64</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>Select values 2</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <name>ID_ESTUDIANTE</name>
+      </field>
+      <field>
+        <name>CURSO_ACA</name>
+      </field>
+      <field>
+        <name>ASIG_APRO</name>
+      </field>
+      <field>
+        <name>ASIG_SUS</name>
+      </field>
+      <field>
+        <name>NUM_ASIG_MAT</name>
+      </field>
+      <select_unspecified>N</select_unspecified>
+      <meta>
+        <name>ASIG_APRO</name>
+        <rename>ASIG_APRO</rename>
+        <type>Number</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <lenient_string_to_number>false</lenient_string_to_number>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>
+    </fields>
+    <attributes/>
+    <GUI>
+      <xloc>1440</xloc>
+      <yloc>160</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>Select values 2 2</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <name>ID_ESTUDIANTE</name>
+      </field>
+      <field>
+        <name>CURSO_ACA</name>
+      </field>
+      <field>
+        <name>ASIG_APRO</name>
+      </field>
+      <field>
+        <name>ASIG_SUS</name>
+      </field>
+      <field>
+        <name>NUM_ASIG_MAT</name>
+      </field>
+      <field>
+        <name>RENDIMIENTO</name>
+      </field>
+      <select_unspecified>N</select_unspecified>
+      <meta>
+        <name>ASIG_APRO</name>
+        <rename>ASIG_APRO</rename>
+        <type>Integer</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <lenient_string_to_number>false</lenient_string_to_number>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>
+    </fields>
+    <attributes/>
+    <GUI>
+      <xloc>1696</xloc>
+      <yloc>160</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>Sort rows</name>
     <type>SortRows</type>
     <description/>
     <distribute>Y</distribute>
@@ -236,11 +617,91 @@ ORDER BY "ID", "ASIGNATURA"
         <collator_strength>0</collator_strength>
         <presorted>N</presorted>
       </field>
+      <field>
+        <name>SUS/APR</name>
+        <ascending>Y</ascending>
+        <case_sensitive>N</case_sensitive>
+        <collator_enabled>N</collator_enabled>
+        <collator_strength>0</collator_strength>
+        <presorted>N</presorted>
+      </field>
     </fields>
     <attributes/>
     <GUI>
-      <xloc>672</xloc>
+      <xloc>880</xloc>
       <yloc>208</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>Sort rows 2</name>
+    <type>SortRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <directory>${java.io.tmpdir}</directory>
+    <prefix>out</prefix>
+    <sort_size>1000000</sort_size>
+    <free_memory/>
+    <compress>N</compress>
+    <compress_variable/>
+    <unique_rows>N</unique_rows>
+    <fields>
+      <field>
+        <name>ID</name>
+        <ascending>Y</ascending>
+        <case_sensitive>N</case_sensitive>
+        <collator_enabled>N</collator_enabled>
+        <collator_strength>0</collator_strength>
+        <presorted>N</presorted>
+      </field>
+      <field>
+        <name>CURSO_ACA</name>
+        <ascending>Y</ascending>
+        <case_sensitive>N</case_sensitive>
+        <collator_enabled>N</collator_enabled>
+        <collator_strength>0</collator_strength>
+        <presorted>N</presorted>
+      </field>
+    </fields>
+    <attributes/>
+    <GUI>
+      <xloc>368</xloc>
+      <yloc>96</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>Unique rows</name>
+    <type>Unique</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <count_field>NUM_ASIG_MAT</count_field>
+    <count_rows>Y</count_rows>
+    <fields>
+      <field>
+        <case_insensitive>N</case_insensitive>
+        <name>ID</name>
+      </field>
+      <field>
+        <case_insensitive>N</case_insensitive>
+        <name>CURSO_ACA</name>
+      </field>
+    </fields>
+    <reject_duplicate_row>N</reject_duplicate_row>
+    <attributes/>
+    <GUI>
+      <xloc>512</xloc>
+      <yloc>64</yloc>
     </GUI>
   </transform>
   <transform>
@@ -254,6 +715,8 @@ ORDER BY "ID", "ASIGNATURA"
       <method>none</method>
       <schema_name/>
     </partitioning>
+    <count_field>Contador</count_field>
+    <count_rows>Y</count_rows>
     <fields>
       <field>
         <case_insensitive>N</case_insensitive>
@@ -263,58 +726,15 @@ ORDER BY "ID", "ASIGNATURA"
         <case_insensitive>N</case_insensitive>
         <name>CURSO_ACA</name>
       </field>
+      <field>
+        <case_insensitive>N</case_insensitive>
+        <name>SUS/APR</name>
+      </field>
     </fields>
-    <count_field>Contador</count_field>
-    <count_rows>Y</count_rows>
     <reject_duplicate_row>N</reject_duplicate_row>
     <attributes/>
     <GUI>
-      <xloc>816</xloc>
-      <yloc>208</yloc>
-    </GUI>
-  </transform>
-  <transform>
-    <name>Dimension lookup/update</name>
-    <type>DimensionLookup</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <schema/>
-    <table>dim table name</table>
-    <connection/>
-    <commit>100</commit>
-    <update>Y</update>
-    <fields>
-      <date>
-        <name/>
-        <from>date_from</from>
-        <to>date_to</to>
-      </date>
-      <return>
-        <name/>
-        <rename/>
-        <creation_method/>
-        <use_autoinc>N</use_autoinc>
-        <version>version</version>
-      </return>
-    </fields>
-    <sequence/>
-    <min_year>1900</min_year>
-    <max_year>2199</max_year>
-    <cache_size>5000</cache_size>
-    <preload_cache>N</preload_cache>
-    <use_start_date_alternative>N</use_start_date_alternative>
-    <start_date_alternative>none</start_date_alternative>
-    <start_date_field_name/>
-    <useBatch>N</useBatch>
-    <attributes/>
-    <GUI>
-      <xloc>1136</xloc>
+      <xloc>992</xloc>
       <yloc>208</yloc>
     </GUI>
   </transform>
