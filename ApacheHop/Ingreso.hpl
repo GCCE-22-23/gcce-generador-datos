@@ -273,7 +273,7 @@
       <schema_name/>
     </partitioning>
     <schema>public</schema>
-    <table>"DIM_INGRESO_3"</table>
+    <table>"DIM_INGRESO"</table>
     <connection>GCCE-Clau</connection>
     <commit>100</commit>
     <update>Y</update>
@@ -318,9 +318,9 @@
         <update>Insert</update>
       </field>
       <return>
-        <name>id_estudiante</name>
+        <name>dim_ingreso_tk</name>
         <rename/>
-        <creation_method>sequence</creation_method>
+        <creation_method>tablemax</creation_method>
         <use_autoinc>N</use_autoinc>
         <version>version</version>
       </return>
@@ -336,8 +336,8 @@
     <useBatch>N</useBatch>
     <attributes/>
     <GUI>
-      <xloc>928</xloc>
-      <yloc>464</yloc>
+      <xloc>1280</xloc>
+      <yloc>288</yloc>
     </GUI>
   </transform>
   <transform>
