@@ -16,6 +16,8 @@
     <created_date>2022/12/16 16:55:27.267</created_date>
     <modified_user>-</modified_user>
     <modified_date>2022/12/16 16:55:27.267</modified_date>
+    <key_for_session_key>H4sIAAAAAAAA/wMAAAAAAAAAAAA=</key_for_session_key>
+    <is_key_private>N</is_key_private>
   </info>
   <notepads>
   </notepads>
@@ -112,6 +114,79 @@
     </hop>
   </order>
   <transform>
+    <name>Dimension lookup/update</name>
+    <type>DimensionLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <schema>public</schema>
+    <table>"DIM_RENDIMIENTO"</table>
+    <connection>GCCE-Ale</connection>
+    <commit>100</commit>
+    <update>Y</update>
+    <fields>
+      <key>
+        <name>ID_ESTUDIANTE</name>
+        <lookup>ID_ESTUDIANTE</lookup>
+      </key>
+      <key>
+        <name>CURSO_ACA</name>
+        <lookup>CURSO_ACA</lookup>
+      </key>
+      <date>
+        <name/>
+        <from>date_from</from>
+        <to>date_to</to>
+      </date>
+      <field>
+        <name>ASIG_APRO</name>
+        <lookup>ASIG_APRO</lookup>
+        <update>Insert</update>
+      </field>
+      <field>
+        <name>ASIG_SUS</name>
+        <lookup>ASIG_SUS</lookup>
+        <update>Insert</update>
+      </field>
+      <field>
+        <name>NUM_ASIG_MAT</name>
+        <lookup>NUM_ASIG_MAT</lookup>
+        <update>Insert</update>
+      </field>
+      <field>
+        <name>RENDIMIENTO</name>
+        <lookup>RENDIMIENTO</lookup>
+        <update>Insert</update>
+      </field>
+      <return>
+        <name>dim_rendimiento_tk</name>
+        <rename/>
+        <creation_method>tablemax</creation_method>
+        <use_autoinc>N</use_autoinc>
+        <version>version</version>
+      </return>
+    </fields>
+    <sequence/>
+    <min_year>1900</min_year>
+    <max_year>2199</max_year>
+    <cache_size>5000</cache_size>
+    <preload_cache>N</preload_cache>
+    <use_start_date_alternative>N</use_start_date_alternative>
+    <start_date_alternative>none</start_date_alternative>
+    <start_date_field_name/>
+    <useBatch>N</useBatch>
+    <attributes/>
+    <GUI>
+      <xloc>1488</xloc>
+      <yloc>368</yloc>
+    </GUI>
+  </transform>
+  <transform>
     <name>GetAsignaturasMat</name>
     <type>TableInput</type>
     <description/>
@@ -173,23 +248,27 @@ ORDER BY "ID", "ASIGNATURA"
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <fields>
-      <field>
-        <name>ASIG_APRO</name>
-        <set_empty_string>N</set_empty_string>
-        <value>0</value>
-      </field>
-      <field>
-        <name>ASIG_SUS</name>
-        <set_empty_string>N</set_empty_string>
-        <value>0</value>
-      </field>
-    </fields>
+    <replaceAllByValue/>
+    <replaceAllMask/>
     <selectFields>Y</selectFields>
     <selectValuesType>N</selectValuesType>
     <setEmptyStringAll>N</setEmptyStringAll>
     <valuetypes>
-</valuetypes>
+      </valuetypes>
+    <fields>
+      <field>
+        <name>ASIG_APRO</name>
+        <value>0</value>
+        <mask/>
+        <set_empty_string>N</set_empty_string>
+      </field>
+      <field>
+        <name>ASIG_SUS</name>
+        <value>0</value>
+        <mask/>
+        <set_empty_string>N</set_empty_string>
+      </field>
+    </fields>
     <attributes/>
     <GUI>
       <xloc>1152</xloc>
@@ -500,27 +579,21 @@ var RENDIMIENTO = ASIG_APRO / NUM_ASIG_MAT </jsScript_script>
     <fields>
       <field>
         <name>ID_ESTUDIANTE</name>
-        <rename/>
       </field>
       <field>
         <name>CURSO_ACA</name>
-        <rename/>
       </field>
       <field>
         <name>ASIG_APRO</name>
-        <rename/>
       </field>
       <field>
         <name>ASIG_SUS</name>
-        <rename/>
       </field>
       <field>
         <name>NUM_ASIG_MAT</name>
-        <rename/>
       </field>
       <field>
         <name>RENDIMIENTO</name>
-        <rename/>
       </field>
       <select_unspecified>N</select_unspecified>
     </fields>
@@ -633,8 +706,6 @@ var RENDIMIENTO = ASIG_APRO / NUM_ASIG_MAT </jsScript_script>
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <count_field>NUM_ASIG_MAT</count_field>
-    <count_rows>Y</count_rows>
     <fields>
       <field>
         <case_insensitive>N</case_insensitive>
@@ -645,6 +716,8 @@ var RENDIMIENTO = ASIG_APRO / NUM_ASIG_MAT </jsScript_script>
         <name>CURSO_ACA</name>
       </field>
     </fields>
+    <count_field>NUM_ASIG_MAT</count_field>
+    <count_rows>Y</count_rows>
     <reject_duplicate_row>N</reject_duplicate_row>
     <attributes/>
     <GUI>
@@ -663,8 +736,6 @@ var RENDIMIENTO = ASIG_APRO / NUM_ASIG_MAT </jsScript_script>
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <count_field>Contador</count_field>
-    <count_rows>Y</count_rows>
     <fields>
       <field>
         <case_insensitive>N</case_insensitive>
@@ -679,81 +750,13 @@ var RENDIMIENTO = ASIG_APRO / NUM_ASIG_MAT </jsScript_script>
         <name>SUS/APR</name>
       </field>
     </fields>
+    <count_field>Contador</count_field>
+    <count_rows>Y</count_rows>
     <reject_duplicate_row>N</reject_duplicate_row>
     <attributes/>
     <GUI>
       <xloc>928</xloc>
       <yloc>208</yloc>
-    </GUI>
-  </transform>
-  <transform>
-    <name>Dimension lookup/update</name>
-    <type>DimensionLookup</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <cache_size>5000</cache_size>
-    <commit>100</commit>
-    <connection>GCCE-Ale</connection>
-    <fields>
-      <date>
-        <from>date_from</from>
-        <name/>
-        <to>date_to</to>
-      </date>
-      <field>
-        <lookup>ASIG_APRO</lookup>
-        <name>ASIG_APRO</name>
-        <update>Insert</update>
-      </field>
-      <field>
-        <lookup>ASIG_SUS</lookup>
-        <name>ASIG_SUS</name>
-        <update>Insert</update>
-      </field>
-      <field>
-        <lookup>NUM_ASIG_MAT</lookup>
-        <name>NUM_ASIG_MAT</name>
-        <update>Insert</update>
-      </field>
-      <field>
-        <lookup>RENDIMIENTO</lookup>
-        <name>RENDIMIENTO</name>
-        <update>Insert</update>
-      </field>
-      <key>
-        <lookup>ID_ESTUDIANTE</lookup>
-        <name>ID_ESTUDIANTE</name>
-      </key>
-      <key>
-        <lookup>CURSO_ACA</lookup>
-        <name>CURSO_ACA</name>
-      </key>
-      <return>
-        <creation_method>tablemax</creation_method>
-        <name>dim_rendimiento_tk</name>
-        <rename/>
-        <version>version</version>
-      </return>
-    </fields>
-    <max_year>2199</max_year>
-    <min_year>1900</min_year>
-    <preload_cache>N</preload_cache>
-    <schema/>
-    <start_date_field_name/>
-    <table>"DIM_RENDIMIENTO"</table>
-    <update>Y</update>
-    <useBatch>N</useBatch>
-    <use_start_date_alternative>N</use_start_date_alternative>
-    <attributes/>
-    <GUI>
-      <xloc>1488</xloc>
-      <yloc>368</yloc>
     </GUI>
   </transform>
   <transform_error_handling>
