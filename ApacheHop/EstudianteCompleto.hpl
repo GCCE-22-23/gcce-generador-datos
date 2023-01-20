@@ -23,90 +23,31 @@
   </notepads>
   <order>
     <hop>
-      <from>DIM_INGRESO</from>
-      <to>DIM_RENDIMIENTO</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>DIM_RENDIMIENTO</from>
-      <to>DIM_SITUACION_ECONOMICA</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
       <from>DIM_SITUACION_ECONOMICA</from>
       <to>DIM_GEOGRAFIA</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
       <from>DIM_GEOGRAFIA</from>
-      <to>DIM_ESTUDIANTE</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>DIM_ESTUDIANTE</from>
       <to>Table output</to>
       <enabled>Y</enabled>
     </hop>
+    <hop>
+      <from>GetMatricula</from>
+      <to>DIM_RENDIMIENTO</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>DIM_RENDIMIENTO</from>
+      <to>DIM_INGRESO</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>DIM_INGRESO</from>
+      <to>DIM_SITUACION_ECONOMICA</to>
+      <enabled>Y</enabled>
+    </hop>
   </order>
-  <transform>
-    <name>DIM_ESTUDIANTE</name>
-    <type>DimensionLookup</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <schema>public</schema>
-    <table>"DIM_ESTUDIANTE"</table>
-    <connection>GCCE-Ale</connection>
-    <commit>100</commit>
-    <update>N</update>
-    <fields>
-      <key>
-        <name>id</name>
-        <lookup>id</lookup>
-      </key>
-      <date>
-        <name/>
-        <from>date_from</from>
-        <to>date_to</to>
-      </date>
-      <field>
-        <name>sexo</name>
-        <lookup>sexo</lookup>
-        <update>String</update>
-      </field>
-      <field>
-        <name>anio_nac</name>
-        <lookup>anio_nac</lookup>
-        <update>String</update>
-      </field>
-      <return>
-        <name>dim_estudiante_tk</name>
-        <rename/>
-        <creation_method>tablemax</creation_method>
-        <use_autoinc>N</use_autoinc>
-        <version>version</version>
-      </return>
-    </fields>
-    <sequence/>
-    <min_year>1900</min_year>
-    <max_year>2199</max_year>
-    <cache_size>5000</cache_size>
-    <preload_cache>N</preload_cache>
-    <use_start_date_alternative>N</use_start_date_alternative>
-    <start_date_alternative>none</start_date_alternative>
-    <start_date_field_name/>
-    <useBatch>N</useBatch>
-    <attributes/>
-    <GUI>
-      <xloc>736</xloc>
-      <yloc>224</yloc>
-    </GUI>
-  </transform>
   <transform>
     <name>DIM_GEOGRAFIA</name>
     <type>DimensionLookup</type>
@@ -125,7 +66,7 @@
     <update>N</update>
     <fields>
       <key>
-        <name>id_estudiante</name>
+        <name>ID</name>
         <lookup>id_estudiante</lookup>
       </key>
       <date>
@@ -136,12 +77,12 @@
       <field>
         <name>distancia</name>
         <lookup>distancia</lookup>
-        <update>String</update>
+        <update>None</update>
       </field>
       <field>
         <name>nacionalidad</name>
         <lookup>nacionalidad</lookup>
-        <update>String</update>
+        <update>None</update>
       </field>
       <return>
         <name>dim_geografia_tk</name>
@@ -162,7 +103,7 @@
     <useBatch>N</useBatch>
     <attributes/>
     <GUI>
-      <xloc>608</xloc>
+      <xloc>592</xloc>
       <yloc>224</yloc>
     </GUI>
   </transform>
@@ -178,13 +119,13 @@
       <schema_name/>
     </partitioning>
     <schema>public</schema>
-    <table>"DIM_GEOGRAFIA"</table>
+    <table>"DIM_INGRESO"</table>
     <connection>GCCE-Ale</connection>
     <commit>100</commit>
     <update>N</update>
     <fields>
       <key>
-        <name>id_estudiante</name>
+        <name>ID</name>
         <lookup>id_estudiante</lookup>
       </key>
       <date>
@@ -193,17 +134,37 @@
         <to>date_to</to>
       </date>
       <field>
-        <name>distancia</name>
-        <lookup>distancia</lookup>
+        <name>nota_discreta</name>
+        <lookup>nota_discreta</lookup>
         <update>None</update>
       </field>
       <field>
-        <name>nacionalidad</name>
-        <lookup>nacionalidad</lookup>
+        <name>preferencia</name>
+        <lookup>preferencia</lookup>
+        <update>None</update>
+      </field>
+      <field>
+        <name>rama</name>
+        <lookup>rama</lookup>
+        <update>None</update>
+      </field>
+      <field>
+        <name>rama_origen</name>
+        <lookup>rama_origen</lookup>
+        <update>None</update>
+      </field>
+      <field>
+        <name>dficultad_modalidad</name>
+        <lookup>dficultad_modalidad</lookup>
+        <update>None</update>
+      </field>
+      <field>
+        <name>especialidad</name>
+        <lookup>especialidad</lookup>
         <update>None</update>
       </field>
       <return>
-        <name>dim_geografia_tk</name>
+        <name>dim_ingreso_tk</name>
         <rename/>
         <creation_method>tablemax</creation_method>
         <use_autoinc>N</use_autoinc>
@@ -221,7 +182,7 @@
     <useBatch>N</useBatch>
     <attributes/>
     <GUI>
-      <xloc>112</xloc>
+      <xloc>240</xloc>
       <yloc>224</yloc>
     </GUI>
   </transform>
@@ -243,29 +204,18 @@
     <update>N</update>
     <fields>
       <key>
-        <name/>
+        <name>ID</name>
         <lookup>id_estudiante</lookup>
+      </key>
+      <key>
+        <name>CURSO_ACA</name>
+        <lookup>curso_aca</lookup>
       </key>
       <date>
         <name/>
         <from>date_from</from>
         <to>date_to</to>
       </date>
-      <field>
-        <name/>
-        <lookup/>
-        <update>None</update>
-      </field>
-      <field>
-        <name/>
-        <lookup/>
-        <update>None</update>
-      </field>
-      <field>
-        <name>curso_aca</name>
-        <lookup>curso_aca</lookup>
-        <update>None</update>
-      </field>
       <field>
         <name>asig_apro</name>
         <lookup>asig_apro</lookup>
@@ -305,7 +255,7 @@
     <useBatch>N</useBatch>
     <attributes/>
     <GUI>
-      <xloc>256</xloc>
+      <xloc>96</xloc>
       <yloc>224</yloc>
     </GUI>
   </transform>
@@ -326,23 +276,26 @@
     <commit>100</commit>
     <update>N</update>
     <fields>
+      <key>
+        <name>ID</name>
+        <lookup>id_estudiante</lookup>
+      </key>
+      <key>
+        <name>CURSO_ACA</name>
+        <lookup>curso_aca</lookup>
+      </key>
       <date>
         <name/>
         <from>date_from</from>
         <to>date_to</to>
       </date>
       <field>
-        <name/>
-        <lookup/>
-        <update>None</update>
-      </field>
-      <field>
-        <name/>
-        <lookup/>
+        <name>economia_familiar</name>
+        <lookup>economia_familiar</lookup>
         <update>None</update>
       </field>
       <return>
-        <name>dim_geografia_tk</name>
+        <name>dim_situacion_economica_tk</name>
         <rename/>
         <creation_method>tablemax</creation_method>
         <use_autoinc>N</use_autoinc>
@@ -360,8 +313,30 @@
     <useBatch>N</useBatch>
     <attributes/>
     <GUI>
-      <xloc>432</xloc>
+      <xloc>416</xloc>
       <yloc>224</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>GetMatricula</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>GCCE-Clau</connection>
+    <execute_each_row>N</execute_each_row>
+    <limit>0</limit>
+    <sql>SELECT DISTINCT "ID","SEXO","CURSO_ACA","ANIO_NAC" FROM "MATRICULA"</sql>
+    <variables_active>N</variables_active>
+    <attributes/>
+    <GUI>
+      <xloc>96</xloc>
+      <yloc>112</yloc>
     </GUI>
   </transform>
   <transform>
@@ -376,9 +351,77 @@
       <schema_name/>
     </partitioning>
     <commit>1000</commit>
-    <connection>GCCE-Clau</connection>
+    <connection>GCCE-Ale</connection>
     <fields>
-</fields>
+      <field>
+        <column_name>ID</column_name>
+        <stream_name>ID</stream_name>
+      </field>
+      <field>
+        <column_name>SEXO</column_name>
+        <stream_name>SEXO</stream_name>
+      </field>
+      <field>
+        <column_name>ANIO_NAC</column_name>
+        <stream_name>ANIO_NAC</stream_name>
+      </field>
+      <field>
+        <column_name>nota_discreta</column_name>
+        <stream_name>nota_discreta</stream_name>
+      </field>
+      <field>
+        <column_name>preferencia</column_name>
+        <stream_name>preferencia</stream_name>
+      </field>
+      <field>
+        <column_name>rama</column_name>
+        <stream_name>rama</stream_name>
+      </field>
+      <field>
+        <column_name>rama_origen</column_name>
+        <stream_name>rama_origen</stream_name>
+      </field>
+      <field>
+        <column_name>dficultad_modalidad</column_name>
+        <stream_name>dficultad_modalidad</stream_name>
+      </field>
+      <field>
+        <column_name>especialidad</column_name>
+        <stream_name>especialidad</stream_name>
+      </field>
+      <field>
+        <column_name>curso_aca</column_name>
+        <stream_name>CURSO_ACA</stream_name>
+      </field>
+      <field>
+        <column_name>asig_apro</column_name>
+        <stream_name>asig_apro</stream_name>
+      </field>
+      <field>
+        <column_name>asig_sus</column_name>
+        <stream_name>asig_sus</stream_name>
+      </field>
+      <field>
+        <column_name>num_asig_mat</column_name>
+        <stream_name>num_asig_mat</stream_name>
+      </field>
+      <field>
+        <column_name>rendimiento</column_name>
+        <stream_name>rendimiento</stream_name>
+      </field>
+      <field>
+        <column_name>economia_familiar</column_name>
+        <stream_name>economia_familiar</stream_name>
+      </field>
+      <field>
+        <column_name>distancia</column_name>
+        <stream_name>distancia</stream_name>
+      </field>
+      <field>
+        <column_name>nacionalidad</column_name>
+        <stream_name>nacionalidad</stream_name>
+      </field>
+    </fields>
     <return_field/>
     <ignore_errors>N</ignore_errors>
     <only_when_have_rows>N</only_when_have_rows>
@@ -397,7 +440,7 @@
     <use_batch>Y</use_batch>
     <attributes/>
     <GUI>
-      <xloc>928</xloc>
+      <xloc>752</xloc>
       <yloc>224</yloc>
     </GUI>
   </transform>

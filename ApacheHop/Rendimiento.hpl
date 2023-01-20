@@ -78,21 +78,6 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Select values</from>
-      <to>Merge join 2</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Row denormaliser</from>
-      <to>If Null</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>If Null</from>
-      <to>Merge join 2</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
       <from>Merge join 2</from>
       <to>Select values 2</to>
       <enabled>Y</enabled>
@@ -110,6 +95,31 @@
     <hop>
       <from>Select values 3</from>
       <to>Dimension lookup/update</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Row denormaliser</from>
+      <to>If Null</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Select values</from>
+      <to>Sort total</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>If Null</from>
+      <to>Sort APR</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Sort total</from>
+      <to>Merge join 2</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Sort APR</from>
+      <to>Merge join 2</to>
       <enabled>Y</enabled>
     </hop>
   </order>
@@ -248,9 +258,9 @@ ORDER BY "ID", "ASIGNATURA"
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <replaceAllByValue/>
+    <replaceAllByValue>0</replaceAllByValue>
     <replaceAllMask/>
-    <selectFields>Y</selectFields>
+    <selectFields>N</selectFields>
     <selectValuesType>N</selectValuesType>
     <setEmptyStringAll>N</setEmptyStringAll>
     <valuetypes>
@@ -421,8 +431,8 @@ var RENDIMIENTO = ASIG_APRO / NUM_ASIG_MAT </jsScript_script>
       <key>ID</key>
       <key>CURSO_ACA</key>
     </keys_2>
-    <transform1>If Null</transform1>
-    <transform2>Select values</transform2>
+    <transform1>Sort APR</transform1>
+    <transform2>Sort total</transform2>
     <attributes/>
     <GUI>
       <xloc>1280</xloc>
@@ -445,8 +455,13 @@ var RENDIMIENTO = ASIG_APRO / NUM_ASIG_MAT </jsScript_script>
         <field_name>Contador</field_name>
         <key_value>APR</key_value>
         <target_aggregation_type>-</target_aggregation_type>
+        <target_currency_symbol/>
+        <target_decimal_symbol/>
+        <target_format/>
+        <target_grouping_symbol/>
         <target_length>-1</target_length>
         <target_name>ASIG_APRO</target_name>
+        <target_null_string/>
         <target_precision>-1</target_precision>
         <target_type>Integer</target_type>
       </field>
@@ -454,13 +469,21 @@ var RENDIMIENTO = ASIG_APRO / NUM_ASIG_MAT </jsScript_script>
         <field_name>Contador</field_name>
         <key_value>SUS</key_value>
         <target_aggregation_type>-</target_aggregation_type>
+        <target_currency_symbol/>
+        <target_decimal_symbol/>
+        <target_format/>
+        <target_grouping_symbol/>
         <target_length>-1</target_length>
         <target_name>ASIG_SUS</target_name>
+        <target_null_string/>
         <target_precision>-1</target_precision>
         <target_type>Integer</target_type>
       </field>
     </fields>
     <group>
+      <field>
+        <name>ID_ESTUDIANTE</name>
+      </field>
       <field>
         <name>CURSO_ACA</name>
       </field>
@@ -526,7 +549,7 @@ var RENDIMIENTO = ASIG_APRO / NUM_ASIG_MAT </jsScript_script>
     </fields>
     <attributes/>
     <GUI>
-      <xloc>1152</xloc>
+      <xloc>1008</xloc>
       <yloc>64</yloc>
     </GUI>
   </transform>
@@ -601,6 +624,48 @@ var RENDIMIENTO = ASIG_APRO / NUM_ASIG_MAT </jsScript_script>
     <GUI>
       <xloc>1488</xloc>
       <yloc>224</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>Sort APR</name>
+    <type>SortRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <directory>${java.io.tmpdir}</directory>
+    <prefix>out</prefix>
+    <sort_size>1000000</sort_size>
+    <free_memory/>
+    <compress>N</compress>
+    <compress_variable/>
+    <unique_rows>N</unique_rows>
+    <fields>
+      <field>
+        <name>ID_ESTUDIANTE</name>
+        <ascending>Y</ascending>
+        <case_sensitive>N</case_sensitive>
+        <collator_enabled>N</collator_enabled>
+        <collator_strength>0</collator_strength>
+        <presorted>N</presorted>
+      </field>
+      <field>
+        <name>CURSO_ACA</name>
+        <ascending>Y</ascending>
+        <case_sensitive>N</case_sensitive>
+        <collator_enabled>N</collator_enabled>
+        <collator_strength>0</collator_strength>
+        <presorted>N</presorted>
+      </field>
+    </fields>
+    <attributes/>
+    <GUI>
+      <xloc>1232</xloc>
+      <yloc>208</yloc>
     </GUI>
   </transform>
   <transform>
@@ -692,6 +757,48 @@ var RENDIMIENTO = ASIG_APRO / NUM_ASIG_MAT </jsScript_script>
     <attributes/>
     <GUI>
       <xloc>368</xloc>
+      <yloc>64</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>Sort total</name>
+    <type>SortRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <directory>${java.io.tmpdir}</directory>
+    <prefix>out</prefix>
+    <sort_size>1000000</sort_size>
+    <free_memory/>
+    <compress>N</compress>
+    <compress_variable/>
+    <unique_rows>N</unique_rows>
+    <fields>
+      <field>
+        <name>ID</name>
+        <ascending>Y</ascending>
+        <case_sensitive>N</case_sensitive>
+        <collator_enabled>N</collator_enabled>
+        <collator_strength>0</collator_strength>
+        <presorted>N</presorted>
+      </field>
+      <field>
+        <name>CURSO_ACA</name>
+        <ascending>Y</ascending>
+        <case_sensitive>N</case_sensitive>
+        <collator_enabled>N</collator_enabled>
+        <collator_strength>0</collator_strength>
+        <presorted>N</presorted>
+      </field>
+    </fields>
+    <attributes/>
+    <GUI>
+      <xloc>1136</xloc>
       <yloc>64</yloc>
     </GUI>
   </transform>

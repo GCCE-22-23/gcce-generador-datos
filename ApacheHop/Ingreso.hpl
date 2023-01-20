@@ -274,7 +274,7 @@
     </partitioning>
     <schema>public</schema>
     <table>"DIM_INGRESO"</table>
-    <connection>GCCE-Clau</connection>
+    <connection>GCCE-Ale</connection>
     <commit>100</commit>
     <update>Y</update>
     <fields>
