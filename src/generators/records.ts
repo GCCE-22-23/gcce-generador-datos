@@ -21,9 +21,10 @@ function markToStr(mark: number): string {
 export function generateRecord(id: string, subject: string) {
   const branch = getItemByHash(id, degrees)
   const degree = getItemByHash(id, branch.TITULACION)
-  const asigMultipliyer =  Number(process.env["GCCE_LINEAS_DE_ACTAS_MULTIPLICADOR_NOTA_ASIGNATURA_" + subject.replaceAll(' ', '_').toUpperCase()]) || 1
-  const branchMultipliyer =  Number(process.env["GCCE_LINEAS_DE_ACTAS_MULTIPLICADOR_NOTA_RAMA_" + branch.RAMA.replaceAll(' ', '_').toUpperCase()]) || 1
-  const mark = Math.min(Math.random() * 10 * asigMultipliyer * branchMultipliyer, 10)
+  const asigMultiplier =  Number(process.env["GCCE_LINEAS_DE_ACTAS_MULTIPLICADOR_NOTA_ASIGNATURA_" + subject.replaceAll(' ', '_').toUpperCase()]) || 1
+  const branchMultiplier =  Number(process.env["GCCE_LINEAS_DE_ACTAS_MULTIPLICADOR_NOTA_RAMA_" + degree.TITULACION.replaceAll(' ', '_').toUpperCase()]) || 1
+  const mark = Math.min(Math.random() * 10 * asigMultiplier * branchMultiplier, 10)
+
 
   return Record.create({
     ID: id,
