@@ -17,8 +17,8 @@
       <description/>
       <type>SPECIAL</type>
       <attributes/>
-      <repeat>N</repeat>
-      <schedulerType>0</schedulerType>
+      <repeat>Y</repeat>
+      <schedulerType>3</schedulerType>
       <intervalSeconds>0</intervalSeconds>
       <intervalMinutes>60</intervalMinutes>
       <hour>12</hour>
