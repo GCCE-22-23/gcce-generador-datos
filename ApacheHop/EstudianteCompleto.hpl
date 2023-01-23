@@ -331,7 +331,7 @@
     <connection>GCCE-Clau</connection>
     <execute_each_row>N</execute_each_row>
     <limit>0</limit>
-    <sql>SELECT DISTINCT "ID","SEXO","CURSO_ACA","ANIO_NAC" FROM "MATRICULA"</sql>
+    <sql>SELECT DISTINCT "ID","SEXO","CURSO_ACA","ANIO_NAC", "TITULACION" FROM "MATRICULA"</sql>
     <variables_active>N</variables_active>
     <attributes/>
     <GUI>
@@ -420,6 +420,10 @@
       <field>
         <column_name>nacionalidad</column_name>
         <stream_name>nacionalidad</stream_name>
+      </field>
+      <field>
+        <column_name>titulacion</column_name>
+        <stream_name>TITULACION</stream_name>
       </field>
     </fields>
     <return_field/>
