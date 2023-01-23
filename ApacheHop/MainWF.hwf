@@ -17,14 +17,14 @@
       <description/>
       <type>SPECIAL</type>
       <attributes/>
-      <repeat>Y</repeat>
-      <schedulerType>3</schedulerType>
-      <intervalSeconds>0</intervalSeconds>
-      <intervalMinutes>60</intervalMinutes>
-      <hour>12</hour>
-      <minutes>0</minutes>
-      <weekDay>1</weekDay>
       <DayOfMonth>1</DayOfMonth>
+      <hour>12</hour>
+      <intervalMinutes>60</intervalMinutes>
+      <intervalSeconds>0</intervalSeconds>
+      <minutes>0</minutes>
+      <repeat>N</repeat>
+      <schedulerType>3</schedulerType>
+      <weekDay>1</weekDay>
       <parallel>N</parallel>
       <xloc>176</xloc>
       <yloc>176</yloc>
