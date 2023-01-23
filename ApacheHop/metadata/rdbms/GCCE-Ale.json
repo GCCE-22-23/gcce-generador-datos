@@ -4,7 +4,7 @@
       "databaseName": "gcce",
       "pluginId": "POSTGRESQL",
       "accessType": 0,
-      "hostname": "10.6.129.219",
+      "hostname": "10.6.128.163",
       "password": "Encrypted 2be98afc86aa7f2e4cb79ce108fc0fc8e",
       "port": "5432",
       "pluginName": "PostgreSQL",
